@@ -1,0 +1,126 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+// Data Object
+struct Patient
+{
+    int id;
+    char name[50];
+    float temperature;
+    char disease[50];
+};
+
+// Data Structure
+struct Patient patient[MAX];
+int count = 0;
+
+// ADT Operations
+void addPatient()
+{
+    printf("\nEnter Patient ID: ");
+    scanf("%d", &patient[count].id);
+
+    printf("Enter Patient Name: ");
+    scanf(" %[^\n]", patient[count].name);
+
+    printf("Enter Temperature: ");
+    scanf("%f", &patient[count].temperature);
+
+    printf("Enter Disease: ");
+    scanf(" %[^\n]", patient[count].disease);
+
+    count++;
+
+    printf("\nPatient Record Added Successfully!\n");
+}
+
+void displayPatients()
+{
+    int i;
+
+    if(count == 0)
+    {
+        printf("\nNo Records Found!\n");
+        return;
+    }
+
+    printf("\n------ Patient Records ------\n");
+
+    for(i=0;i<count;i++)
+    {
+        printf("\nPatient %d\n",i+1);
+        printf("ID          : %d\n",patient[i].id);
+        printf("Name        : %s\n",patient[i].name);
+        printf("Temperature : %.2f\n",patient[i].temperature);
+        printf("Disease     : %s\n",patient[i].disease);
+    }
+}
+
+void searchPatient()
+{
+    int id,i,found=0;
+
+    printf("\nEnter Patient ID to Search: ");
+    scanf("%d",&id);
+
+    for(i=0;i<count;i++)
+    {
+        if(patient[i].id==id)
+        {
+            found=1;
+
+            printf("\nPatient Found\n");
+            printf("ID          : %d\n",patient[i].id);
+            printf("Name        : %s\n",patient[i].name);
+            printf("Temperature : %.2f\n",patient[i].temperature);
+            printf("Disease     : %s\n",patient[i].disease);
+            break;
+        }
+    }
+
+    if(found==0)
+        printf("\nPatient Not Found!\n");
+}
+
+int main()
+{
+    int choice;
+
+    while(1)
+    {
+        printf("\n===== SMART HEALTHCARE SYSTEM =====\n");
+        printf("1. Add Patient\n");
+        printf("2. Display Patients\n");
+        printf("3. Search Patient\n");
+        printf("4. Exit\n");
+
+        printf("Enter your choice: ");
+        scanf("%d",&choice);
+
+        switch(choice)
+        {
+            case 1:
+                addPatient();
+                break;
+
+            case 2:
+                displayPatients();
+                break;
+
+            case 3:
+                searchPatient();
+                break;
+
+            case 4:
+                printf("\nThank You!\n");
+                return 0;
+
+            default:
+                printf("\nInvalid Choice!\n");
+        }
+    }
+
+    return 0;
+}
